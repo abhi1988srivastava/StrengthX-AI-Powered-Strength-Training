@@ -1,0 +1,1589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StrengthX - iOS App Preview</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0F0F14;
+    --surface: #1C1C24;
+    --surfaceEl: #292930;
+    --accent: #59ADFF;
+    --accentSec: #8C5CFF;
+    --success: #4DD98C;
+    --warning: #FFC247;
+    --danger: #FF5959;
+    --textPri: #FFFFFF;
+    --textSec: #999999;
+    --textTer: #666666;
+    --chest: #FF6B6B;
+    --back: #59ADFF;
+    --legs: #8C5CFF;
+    --shoulders: #FFC247;
+    --arms: #4DD98C;
+    --core: #FF8C59;
+    --radius: 16px;
+    --radiusSm: 10px;
+  }
+
+  body {
+    background: #1a1a2e;
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', 'Helvetica Neue', sans-serif;
+    color: var(--textPri);
+    padding: 40px 20px;
+    min-height: 100vh;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accentSec));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: var(--textSec);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .screen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 380px);
+    gap: 40px;
+    justify-content: center;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  .screen-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .screen-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .phone {
+    width: 375px;
+    height: 812px;
+    background: var(--bg);
+    border-radius: 44px;
+    border: 3px solid #333;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .status-bar {
+    height: 54px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 30px 6px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--textPri);
+  }
+
+  .notch {
+    width: 160px;
+    height: 34px;
+    background: #000;
+    border-radius: 0 0 20px 20px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  .screen-content {
+    height: calc(100% - 54px);
+    overflow-y: auto;
+    padding: 0 0 80px;
+    scrollbar-width: none;
+  }
+  .screen-content::-webkit-scrollbar { display: none; }
+
+  .tab-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 8px 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    color: var(--textTer);
+  }
+  .tab-item.active { color: var(--accent); }
+  .tab-item svg { width: 22px; height: 22px; fill: currentColor; }
+
+  .pad { padding: 0 20px; }
+
+  .card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .caption {
+    font-size: 14px;
+    color: var(--textSec);
+  }
+
+  .small {
+    font-size: 12px;
+    color: var(--textTer);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accentSec));
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .btn-secondary {
+    background: rgba(89,173,255,0.12);
+    color: var(--accent);
+    border: none;
+    border-radius: 14px;
+    padding: 14px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .selection-card {
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 2px solid transparent;
+    cursor: pointer;
+  }
+  .selection-card.selected {
+    background: rgba(89,173,255,0.08);
+    border-color: var(--accent);
+  }
+
+  .icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .check { color: var(--accent); font-size: 20px; margin-left: auto; }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .stat-card {
+    flex: 1;
+    background: var(--surface);
+    border-radius: 14px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .stat-card .stat-icon { font-size: 18px; margin-bottom: 6px; }
+  .stat-card .stat-value { font-size: 22px; font-weight: 800; }
+  .stat-card .stat-label { font-size: 11px; color: var(--textTer); margin-top: 4px; }
+
+  .progress-bar {
+    height: 4px;
+    background: var(--surfaceEl);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.3s;
+  }
+
+  .bar-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 90px;
+  }
+  .bar-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+  .bar {
+    width: 100%;
+    border-radius: 4px;
+    min-height: 4px;
+  }
+
+  .muscle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .muscle-label { width: 75px; font-size: 13px; color: var(--textSec); }
+  .muscle-bar-track { flex: 1; height: 6px; background: var(--surfaceEl); border-radius: 3px; overflow: hidden; }
+  .muscle-bar-fill { height: 100%; border-radius: 3px; }
+  .muscle-sets { width: 50px; text-align: right; font-size: 12px; color: var(--textTer); }
+
+  .slider-row {
+    margin-bottom: 16px;
+  }
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .slider-header .left { display: flex; align-items: center; gap: 6px; font-size: 14px; }
+  .slider-track {
+    width: 100%;
+    height: 6px;
+    background: var(--surfaceEl);
+    border-radius: 3px;
+    position: relative;
+  }
+  .slider-fill { height: 100%; border-radius: 3px; }
+  .slider-thumb {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    top: -6px;
+    border: 2px solid white;
+  }
+
+  .radar-container {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 20px;
+  }
+
+  .exercise-row {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .exercise-num {
+    width: 24px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--textTer);
+    padding-top: 2px;
+  }
+  .exercise-details { flex: 1; }
+  .exercise-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .exercise-meta { font-size: 12px; color: var(--textSec); display: flex; gap: 10px; }
+  .exercise-tag {
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(89,173,255,0.12);
+    padding: 3px 8px;
+    border-radius: 6px;
+    align-self: flex-start;
+  }
+
+  .set-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .set-num { width: 30px; font-size: 14px; font-weight: 600; text-align: center; }
+  .set-input {
+    flex: 1;
+    background: var(--surfaceEl);
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--textPri);
+  }
+  .set-check {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--textTer);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .set-check.done {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+  }
+
+  .insight-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    font-size: 13px;
+  }
+
+  .rest-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+    padding: 12px 20px;
+  }
+
+  .session-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+  }
+  .session-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(89,173,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .equip-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .equip-item {
+    background: var(--surfaceEl);
+    border-radius: 14px;
+    padding: 16px 8px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--textTer);
+    border: 2px solid transparent;
+  }
+  .equip-item.selected {
+    background: rgba(89,173,255,0.1);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .equip-item .equip-icon { font-size: 26px; margin-bottom: 8px; }
+
+  .day-selector {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+  }
+  .day-btn {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--textSec);
+    background: var(--surface);
+  }
+  .day-btn.active {
+    background: var(--accent);
+    color: white;
+  }
+
+  .preset-row {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .preset-btn {
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 7px 12px;
+    font-size: 12px;
+    color: var(--textSec);
+  }
+
+  .scan-area {
+    border: 2px dashed var(--surfaceEl);
+    border-radius: 20px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .scan-area .scan-icon { font-size: 36px; color: var(--accent); }
+
+  .parsed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .confidence-badge {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .parsed-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .parsed-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .complete-icon {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    background: rgba(77,217,140,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: var(--success);
+    margin: 0 auto 24px;
+  }
+
+  .setting-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 15px;
+  }
+  .setting-label { color: var(--textSec); }
+  .setting-value { color: var(--textTer); }
+
+  .feature-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+  .feature-icon {
+    width: 32px;
+    font-size: 18px;
+    color: var(--accent);
+    text-align: center;
+  }
+  .feature-text { font-size: 14px; color: var(--textSec); }
+
+  .streak-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    background: rgba(255,194,71,0.12);
+    color: var(--warning);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .quick-start {
+    background: linear-gradient(135deg, var(--accent), var(--accentSec));
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+  }
+
+  .nav-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    gap: 16px;
+  }
+  .nav-btn {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--textPri);
+    font-size: 18px;
+  }
+
+  .scan-features {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+  }
+  .scan-feature {
+    text-align: center;
+    font-size: 11px;
+    color: var(--textTer);
+  }
+  .scan-feature .sf-icon {
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .privacy-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--textTer);
+  }
+
+  .goal-grid {
+    display: flex;
+    gap: 8px;
+  }
+  .goal-btn {
+    flex: 1;
+    background: var(--surfaceEl);
+    border-radius: var(--radiusSm);
+    padding: 12px 6px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--textSec);
+    border: 1.5px solid transparent;
+  }
+  .goal-btn.active {
+    background: rgba(89,173,255,0.12);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .mode-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: var(--radiusSm);
+    margin-bottom: 4px;
+  }
+  .mode-row.active {
+    background: rgba(89,173,255,0.06);
+  }
+</style>
+</head>
+<body>
+
+<h1>StrengthX</h1>
+<p class="subtitle">iOS App Preview -- All Screens</p>
+
+<div class="screen-grid">
+
+<!-- ==================== SCREEN 1: WELCOME ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">1. Welcome (Onboarding)</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="text-align:center; padding-top:40px;">
+        <div style="width:110px;height:110px;border-radius:50%;background:rgba(89,173,255,0.1);margin:0 auto 24px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:48px;">🏋️</span>
+        </div>
+        <div style="font-size:34px;font-weight:800;margin-bottom:8px;">StrengthX</div>
+        <div style="color:var(--textSec);font-size:17px;line-height:1.5;margin-bottom:32px;">Adaptive training.<br>Zero friction.</div>
+
+        <div style="text-align:left;margin-bottom:40px;">
+          <div class="feature-row"><div class="feature-icon">🧠</div><div class="feature-text">AI-powered workout adaptation</div></div>
+          <div class="feature-row"><div class="feature-icon">📱</div><div class="feature-text">Everything runs on-device</div></div>
+          <div class="feature-row"><div class="feature-icon">🔒</div><div class="feature-text">No account, no cloud, no tracking</div></div>
+          <div class="feature-row"><div class="feature-icon">📷</div><div class="feature-text">Scan workouts from photos</div></div>
+        </div>
+
+        <div class="btn-primary">Continue</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 2: GOAL SELECTION ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">2. Goal Selection</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:16px;">
+        <div class="progress-bar" style="margin-bottom:28px;"><div class="progress-fill" style="width:16%"></div></div>
+
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">What's your goal?</div>
+          <div class="caption">This shapes your rep ranges, rest times, and progression</div>
+        </div>
+
+        <div class="selection-card selected">
+          <div class="icon-circle" style="background:rgba(89,173,255,0.15);color:var(--accent);">⚡</div>
+          <div>
+            <div style="font-weight:600;font-size:16px;">Strength</div>
+            <div class="caption">Lift heavier, get stronger</div>
+          </div>
+          <div class="check">✓</div>
+        </div>
+
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);color:var(--textSec);">⚖️</div>
+          <div>
+            <div style="font-weight:600;font-size:16px;">Hypertrophy</div>
+            <div class="caption">Build muscle size</div>
+          </div>
+        </div>
+
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);color:var(--textSec);">🔥</div>
+          <div>
+            <div style="font-weight:600;font-size:16px;">Fat Loss</div>
+            <div class="caption">Burn fat, maintain muscle</div>
+          </div>
+        </div>
+
+        <div style="margin-top:32px;">
+          <div class="btn-primary">Continue</div>
+          <div style="text-align:center;margin-top:12px;color:var(--textSec);font-size:15px;">Back</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 3: EXPERIENCE ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">3. Experience Level</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:16px;">
+        <div class="progress-bar" style="margin-bottom:28px;"><div class="progress-fill" style="width:33%"></div></div>
+
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Experience level?</div>
+          <div class="caption">This adjusts exercise complexity and volume</div>
+        </div>
+
+        <div class="selection-card">
+          <div><div style="font-weight:600;font-size:16px;">Beginner</div><div class="caption">Less than 1 year of training</div></div>
+        </div>
+        <div class="selection-card selected">
+          <div><div style="font-weight:600;font-size:16px;">Intermediate</div><div class="caption">1-3 years of consistent training</div></div>
+          <div class="check">✓</div>
+        </div>
+        <div class="selection-card">
+          <div><div style="font-weight:600;font-size:16px;">Advanced</div><div class="caption">3+ years of serious training</div></div>
+        </div>
+
+        <div style="margin-top:32px;">
+          <div class="btn-primary">Continue</div>
+          <div style="text-align:center;margin-top:12px;color:var(--textSec);font-size:15px;">Back</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 4: EQUIPMENT ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">4. Equipment Selection</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:16px;">
+        <div class="progress-bar" style="margin-bottom:28px;"><div class="progress-fill" style="width:50%"></div></div>
+
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Available equipment?</div>
+          <div class="caption">Select everything you have access to</div>
+        </div>
+
+        <div class="equip-grid">
+          <div class="equip-item selected"><div class="equip-icon">🏋️</div>Barbell</div>
+          <div class="equip-item selected"><div class="equip-icon">🔩</div>Dumbbells</div>
+          <div class="equip-item selected"><div class="equip-icon">🔗</div>Cables</div>
+          <div class="equip-item selected"><div class="equip-icon">⚙️</div>Machines</div>
+          <div class="equip-item"><div class="equip-icon">🧍</div>Bodyweight</div>
+          <div class="equip-item"><div class="equip-icon">🔔</div>Kettlebells</div>
+        </div>
+
+        <div style="margin-top:28px;">
+          <div class="btn-primary">Continue</div>
+          <div style="text-align:center;margin-top:12px;color:var(--textSec);font-size:15px;">Back</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 5: TRAINING STYLE ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">5. Training Style</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:16px;">
+        <div class="progress-bar" style="margin-bottom:28px;"><div class="progress-fill" style="width:66%"></div></div>
+
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Training style?</div>
+          <div class="caption">You can change this anytime</div>
+        </div>
+
+        <div class="selection-card selected">
+          <div class="icon-circle" style="background:rgba(89,173,255,0.15);color:var(--accent);">↔️</div>
+          <div><div style="font-weight:600;font-size:16px;">Push / Pull</div><div class="small">Alternate pushing and pulling movements</div></div>
+          <div class="check">✓</div>
+        </div>
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);color:var(--textSec);">📅</div>
+          <div><div style="font-weight:600;font-size:16px;">Bro Split</div><div class="small">Dedicate each day to a muscle group</div></div>
+        </div>
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);color:var(--textSec);">💪</div>
+          <div><div style="font-weight:600;font-size:16px;">Full Body</div><div class="small">Hit everything in one session</div></div>
+        </div>
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);color:var(--textSec);">🎯</div>
+          <div><div style="font-weight:600;font-size:16px;">Muscle Focus</div><div class="small">Target a specific muscle group</div></div>
+        </div>
+
+        <div style="margin-top:20px;">
+          <div class="btn-primary">Continue</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 6: SCHEDULE ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">6. Schedule</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:16px;">
+        <div class="progress-bar" style="margin-bottom:28px;"><div class="progress-fill" style="width:83%"></div></div>
+
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Days per week?</div>
+          <div class="caption">How many days can you train?</div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:24px;">
+          <div style="font-size:44px;font-weight:800;color:var(--accent);">4</div>
+          <div style="color:var(--textSec);font-size:16px;">days per week</div>
+        </div>
+
+        <div class="day-selector" style="margin-bottom:32px;">
+          <div class="day-btn">2</div>
+          <div class="day-btn">3</div>
+          <div class="day-btn active">4</div>
+          <div class="day-btn">5</div>
+          <div class="day-btn">6</div>
+          <div class="day-btn">7</div>
+        </div>
+
+        <div style="text-align:center;margin-bottom:8px;" class="small">Bodyweight (optional)</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:32px;">
+          <div style="background:var(--surface);padding:12px;border-radius:10px;width:120px;text-align:center;color:var(--textTer);font-size:16px;">75</div>
+          <span class="small">kg</span>
+        </div>
+
+        <div class="btn-primary">Continue</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 7: READY ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">7. Ready to Go</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:48px;text-align:center;">
+        <div style="width:110px;height:110px;border-radius:50%;background:rgba(77,217,140,0.1);margin:0 auto 24px;display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:52px;color:var(--success);">✓</span>
+        </div>
+
+        <div style="font-size:26px;font-weight:800;margin-bottom:8px;">You're all set</div>
+        <div class="caption" style="margin-bottom:28px;">Your training is personalized and ready</div>
+
+        <div class="card">
+          <div class="summary-row"><span class="small">Goal</span><span style="font-weight:600;font-size:14px;">Strength</span></div>
+          <div class="summary-row"><span class="small">Experience</span><span style="font-weight:600;font-size:14px;">Intermediate</span></div>
+          <div class="summary-row"><span class="small">Style</span><span style="font-weight:600;font-size:14px;">Push / Pull</span></div>
+          <div class="summary-row"><span class="small">Schedule</span><span style="font-weight:600;font-size:14px;">4 days/week</span></div>
+          <div class="summary-row"><span class="small">Equipment</span><span style="font-weight:600;font-size:14px;">4 types</span></div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <div class="btn-primary">Start Training</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 8: HOME ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">8. Home Dashboard</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:12px;">
+        <!-- Header -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div>
+            <div style="font-size:26px;font-weight:800;">StrengthX</div>
+            <div class="caption">Saturday</div>
+          </div>
+          <div class="streak-badge">🔥 3w</div>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="quick-start">
+          <div>
+            <div style="font-size:20px;font-weight:700;">Ready to train?</div>
+            <div style="opacity:0.7;font-size:13px;margin-top:4px;">Push / Pull workout</div>
+          </div>
+          <div style="font-size:40px;opacity:0.9;">▶</div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-icon" style="color:var(--accent);">📅</div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">sessions</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:var(--success);">💪</div>
+            <div class="stat-value">27</div>
+            <div class="stat-label">workouts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:var(--warning);">🔥</div>
+            <div class="stat-value">3</div>
+            <div class="stat-label">weeks</div>
+          </div>
+        </div>
+
+        <!-- Weekly Chart -->
+        <div class="card">
+          <div class="section-title">This Week</div>
+          <div class="bar-chart">
+            <div class="bar-col"><div class="bar" style="height:55px;background:linear-gradient(to top,var(--accent),var(--accentSec));"></div><span class="small">Mon</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Tue</span></div>
+            <div class="bar-col"><div class="bar" style="height:72px;background:linear-gradient(to top,var(--accent),var(--accentSec));"></div><span class="small">Wed</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Thu</span></div>
+            <div class="bar-col"><div class="bar" style="height:65px;background:linear-gradient(to top,var(--accent),var(--accentSec));"></div><span class="small">Fri</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Sat</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Sun</span></div>
+          </div>
+        </div>
+
+        <!-- Muscle Focus -->
+        <div class="card">
+          <div class="section-title">Muscle Focus</div>
+          <div class="muscle-row"><div class="muscle-label">Chest</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:85%;background:var(--chest);"></div></div><div class="muscle-sets">12 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">Back</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:70%;background:var(--back);"></div></div><div class="muscle-sets">10 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">Legs</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:50%;background:var(--legs);"></div></div><div class="muscle-sets">8 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">Shoulders</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:45%;background:var(--shoulders);"></div></div><div class="muscle-sets">6 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">Arms</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:35%;background:var(--arms);"></div></div><div class="muscle-sets">4 sets</div></div>
+        </div>
+
+        <!-- Recent -->
+        <div class="card">
+          <div class="section-title">Recent Workouts</div>
+          <div class="session-row">
+            <div class="session-icon">💪</div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Push Day</div><div class="small">Today</div></div>
+            <div style="text-align:right;"><div style="font-size:13px;color:var(--textSec);">52m</div><div class="small">8,420kg</div></div>
+          </div>
+          <div class="session-row">
+            <div class="session-icon">💪</div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Pull Day</div><div class="small">Yesterday</div></div>
+            <div style="text-align:right;"><div style="font-size:13px;color:var(--textSec);">48m</div><div class="small">7,850kg</div></div>
+          </div>
+          <div class="session-row">
+            <div class="session-icon">💪</div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Push Day</div><div class="small">Feb 5</div></div>
+            <div style="text-align:right;"><div style="font-size:13px;color:var(--textSec);">55m</div><div class="small">8,100kg</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item active"><span>🏠</span><span>Home</span></div>
+      <div class="tab-item"><span>🏋️</span><span>Train</span></div>
+      <div class="tab-item"><span>📷</span><span>Scan</span></div>
+      <div class="tab-item"><span>📊</span><span>Progress</span></div>
+      <div class="tab-item"><span>⚙️</span><span>Settings</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 9: MODE SELECTION ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">9. Workout Mode Selection</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:20px;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Choose Your Workout</div>
+          <div class="caption">Select a training style for today</div>
+        </div>
+
+        <div class="selection-card selected">
+          <div class="icon-circle" style="background:rgba(89,173,255,0.15);color:var(--accent);font-size:22px;">↔️</div>
+          <div><div style="font-weight:600;">Push / Pull</div><div class="small">Alternate pushing and pulling movements</div></div>
+          <div class="check">✓</div>
+        </div>
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);font-size:22px;">📅</div>
+          <div><div style="font-weight:600;">Bro Split</div><div class="small">Dedicate each day to a muscle group</div></div>
+        </div>
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);font-size:22px;">💪</div>
+          <div><div style="font-weight:600;">Full Body</div><div class="small">Hit everything in one session</div></div>
+        </div>
+        <div class="selection-card">
+          <div class="icon-circle" style="background:var(--surfaceEl);font-size:22px;">🎯</div>
+          <div><div style="font-weight:600;">Muscle Focus</div><div class="small">Target a specific muscle group</div></div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <div class="btn-primary">Next: Set Focus</div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span>🏠</span><span>Home</span></div>
+      <div class="tab-item active"><span>🏋️</span><span>Train</span></div>
+      <div class="tab-item"><span>📷</span><span>Scan</span></div>
+      <div class="tab-item"><span>📊</span><span>Progress</span></div>
+      <div class="tab-item"><span>⚙️</span><span>Settings</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 10: FOCUS SLIDER ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">10. Focus Slider</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:16px;">
+        <div style="text-align:center;margin-bottom:16px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Set Your Focus</div>
+          <div class="caption">Slide to bias training toward specific muscles</div>
+        </div>
+
+        <!-- Radar chart -->
+        <div class="radar-container">
+          <svg viewBox="0 0 200 200" width="200" height="200">
+            <!-- Grid -->
+            <polygon points="100,20 172,58 172,142 100,180 28,142 28,58" fill="none" stroke="#292930" stroke-width="1"/>
+            <polygon points="100,40 156,68 156,132 100,160 44,132 44,68" fill="none" stroke="#292930" stroke-width="1"/>
+            <polygon points="100,60 140,78 140,122 100,140 60,122 60,78" fill="none" stroke="#292930" stroke-width="1"/>
+            <!-- Data -->
+            <polygon points="100,30 165,70 148,140 100,165 38,110 45,62" fill="rgba(89,173,255,0.2)" stroke="#59ADFF" stroke-width="2"/>
+            <!-- Labels -->
+            <text x="100" y="12" text-anchor="middle" fill="#999" font-size="11">Chest</text>
+            <text x="185" y="55" text-anchor="start" fill="#999" font-size="11">Back</text>
+            <text x="185" y="150" text-anchor="start" fill="#999" font-size="11">Legs</text>
+            <text x="100" y="198" text-anchor="middle" fill="#999" font-size="11">Shoulders</text>
+            <text x="10" y="100" text-anchor="start" fill="#999" font-size="11">Arms</text>
+          </svg>
+        </div>
+
+        <!-- Sliders -->
+        <div class="slider-row">
+          <div class="slider-header">
+            <div class="left"><span style="color:var(--chest);">●</span> Chest</div>
+            <span style="color:var(--chest);font-weight:600;font-size:14px;">35%</span>
+          </div>
+          <div class="slider-track"><div class="slider-fill" style="width:35%;background:var(--chest);border-radius:3px;"></div><div class="slider-thumb" style="left:33%;background:var(--chest);"></div></div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-header">
+            <div class="left"><span style="color:var(--back);">●</span> Back</div>
+            <span style="color:var(--back);font-weight:600;font-size:14px;">25%</span>
+          </div>
+          <div class="slider-track"><div class="slider-fill" style="width:25%;background:var(--back);border-radius:3px;"></div><div class="slider-thumb" style="left:23%;background:var(--back);"></div></div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-header">
+            <div class="left"><span style="color:var(--legs);">●</span> Legs</div>
+            <span style="color:var(--legs);font-weight:600;font-size:14px;">15%</span>
+          </div>
+          <div class="slider-track"><div class="slider-fill" style="width:15%;background:var(--legs);border-radius:3px;"></div><div class="slider-thumb" style="left:13%;background:var(--legs);"></div></div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-header">
+            <div class="left"><span style="color:var(--shoulders);">●</span> Shoulders</div>
+            <span style="color:var(--shoulders);font-weight:600;font-size:14px;">15%</span>
+          </div>
+          <div class="slider-track"><div class="slider-fill" style="width:15%;background:var(--shoulders);border-radius:3px;"></div><div class="slider-thumb" style="left:13%;background:var(--shoulders);"></div></div>
+        </div>
+        <div class="slider-row">
+          <div class="slider-header">
+            <div class="left"><span style="color:var(--arms);">●</span> Arms</div>
+            <span style="color:var(--arms);font-weight:600;font-size:14px;">10%</span>
+          </div>
+          <div class="slider-track"><div class="slider-fill" style="width:10%;background:var(--arms);border-radius:3px;"></div><div class="slider-thumb" style="left:8%;background:var(--arms);"></div></div>
+        </div>
+
+        <!-- Presets -->
+        <div style="text-align:center;margin-top:16px;margin-bottom:8px;" class="small">Quick Presets</div>
+        <div class="preset-row" style="margin-bottom:20px;">
+          <div class="preset-btn">Balanced</div>
+          <div class="preset-btn">Upper Focus</div>
+          <div class="preset-btn">Lower Focus</div>
+          <div class="preset-btn">Push Heavy</div>
+        </div>
+
+        <div class="btn-primary">Generate Workout</div>
+        <div style="text-align:center;margin-top:10px;color:var(--textSec);font-size:15px;">Back</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 11: WORKOUT PREVIEW ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">11. Workout Preview</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:20px;">
+        <div style="text-align:center;margin-bottom:8px;">
+          <div style="font-size:26px;font-weight:800;">Push Day</div>
+          <div style="display:flex;gap:14px;justify-content:center;margin-top:6px;">
+            <span class="caption">📋 7 exercises</span>
+            <span class="caption">⏱ ~42min</span>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;justify-content:center;margin-bottom:20px;">
+          <div class="chip" style="background:rgba(255,107,107,0.12);color:var(--chest);">Chest</div>
+          <div class="chip" style="background:rgba(255,194,71,0.12);color:var(--shoulders);">Shoulders</div>
+          <div class="chip" style="background:rgba(77,217,140,0.12);color:var(--arms);">Arms</div>
+        </div>
+
+        <div class="card">
+          <div class="exercise-row"><div class="exercise-num">1</div><div class="exercise-details"><div class="exercise-name">Flat Bench Press</div><div class="exercise-meta"><span>6 sets</span><span>4 reps</span><span>300s rest</span></div></div><div class="exercise-tag">Chest</div></div>
+          <div class="exercise-row"><div class="exercise-num">2</div><div class="exercise-details"><div class="exercise-name">Incline Dumbbell Press</div><div class="exercise-meta"><span>5 sets</span><span>4 reps</span><span>300s rest</span></div></div><div class="exercise-tag">Chest</div></div>
+          <div class="exercise-row"><div class="exercise-num">3</div><div class="exercise-details"><div class="exercise-name">Cable Fly</div><div class="exercise-meta"><span>4 sets</span><span>6 reps</span><span>180s rest</span></div></div><div class="exercise-tag">Chest</div></div>
+          <div class="exercise-row"><div class="exercise-num">4</div><div class="exercise-details"><div class="exercise-name">Overhead Press</div><div class="exercise-meta"><span>6 sets</span><span>4 reps</span><span>300s rest</span></div></div><div class="exercise-tag">Shoulders</div></div>
+          <div class="exercise-row"><div class="exercise-num">5</div><div class="exercise-details"><div class="exercise-name">Lateral Raise</div><div class="exercise-meta"><span>4 sets</span><span>6 reps</span><span>180s rest</span></div></div><div class="exercise-tag">Shoulders</div></div>
+          <div class="exercise-row"><div class="exercise-num">6</div><div class="exercise-details"><div class="exercise-name">Tricep Pushdown</div><div class="exercise-meta"><span>4 sets</span><span>6 reps</span><span>180s rest</span></div></div><div class="exercise-tag">Arms</div></div>
+          <div class="exercise-row" style="border:none;"><div class="exercise-num">7</div><div class="exercise-details"><div class="exercise-name">Skull Crusher</div><div class="exercise-meta"><span>5 sets</span><span>4 reps</span><span>300s rest</span></div></div><div class="exercise-tag">Arms</div></div>
+        </div>
+
+        <div style="margin-top:8px;">
+          <div class="btn-primary">Start Workout</div>
+          <div style="display:flex;justify-content:center;gap:24px;margin-top:12px;">
+            <span style="color:var(--accent);font-size:14px;">Regenerate</span>
+            <span style="color:var(--textSec);font-size:14px;">Back</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 12: ACTIVE WORKOUT ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">12. Active Workout</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <!-- Top bar -->
+      <div style="display:flex;align-items:center;padding:8px 20px;">
+        <div style="width:34px;height:34px;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--textSec);">✕</div>
+        <div style="flex:1;text-align:center;">
+          <div style="font-size:15px;font-weight:600;">Push Day</div>
+          <div style="font-size:13px;color:var(--accent);">12:34</div>
+        </div>
+        <div style="width:34px;"></div>
+      </div>
+      <div class="progress-bar" style="margin:0 20px 16px;"><div class="progress-fill" style="width:40%"></div></div>
+
+      <div class="pad">
+        <!-- Exercise header -->
+        <div style="text-align:center;margin-bottom:12px;">
+          <div class="small">3 / 7</div>
+          <div style="font-size:20px;font-weight:700;margin:4px 0;">Cable Fly</div>
+          <div style="display:flex;gap:14px;justify-content:center;">
+            <span class="caption">📦 4x6</span>
+            <span class="caption">📊 RPE 9</span>
+          </div>
+        </div>
+
+        <!-- Adaptation insight -->
+        <div class="insight-bar" style="background:rgba(77,217,140,0.08);">
+          <span style="color:var(--success);font-size:18px;">⬆</span>
+          <div>
+            <div style="font-size:12px;color:var(--textSec);">Great consistency! Time to add 2.5kg.</div>
+            <div style="font-size:13px;font-weight:600;color:var(--success);">Suggested: 15kg</div>
+          </div>
+        </div>
+
+        <!-- Set logging -->
+        <div class="card">
+          <div class="set-row" style="margin-bottom:10px;">
+            <div style="width:30px;font-size:11px;color:var(--textTer);text-align:center;">SET</div>
+            <div style="flex:1;font-size:11px;color:var(--textTer);text-align:center;">WEIGHT</div>
+            <div style="flex:1;font-size:11px;color:var(--textTer);text-align:center;">REPS</div>
+            <div style="width:36px;"></div>
+          </div>
+          <div class="set-row">
+            <div class="set-num" style="color:var(--success);">1</div>
+            <div class="set-input" style="opacity:0.6;">15</div>
+            <div class="set-input" style="opacity:0.6;">6</div>
+            <div class="set-check done">✓</div>
+          </div>
+          <div class="set-row">
+            <div class="set-num" style="color:var(--success);">2</div>
+            <div class="set-input" style="opacity:0.6;">15</div>
+            <div class="set-input" style="opacity:0.6;">6</div>
+            <div class="set-check done">✓</div>
+          </div>
+          <div class="set-row">
+            <div class="set-num">3</div>
+            <div class="set-input">15</div>
+            <div class="set-input">6</div>
+            <div class="set-check">○</div>
+          </div>
+          <div class="set-row">
+            <div class="set-num">4</div>
+            <div class="set-input" style="color:var(--textTer);">15</div>
+            <div class="set-input" style="color:var(--textTer);">6</div>
+            <div class="set-check">○</div>
+          </div>
+          <div class="btn-secondary" style="margin-top:10px;padding:10px;font-size:13px;">+ Add Set</div>
+        </div>
+      </div>
+
+      <!-- Rest timer -->
+      <div class="rest-bar">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="color:var(--accent);">⏱</span>
+          <span style="font-weight:600;">Rest: 1:42</span>
+        </div>
+        <div style="color:var(--accent);font-size:14px;background:rgba(89,173,255,0.12);padding:7px 14px;border-radius:8px;">Skip</div>
+      </div>
+
+      <!-- Nav footer -->
+      <div class="nav-footer">
+        <div class="nav-btn">◀</div>
+        <div style="text-align:center;">
+          <div class="small">Volume</div>
+          <div style="font-weight:600;">4,230 kg</div>
+        </div>
+        <div class="nav-btn">▶</div>
+      </div>
+
+      <div class="pad" style="padding-bottom:20px;">
+        <div class="btn-primary">Finish Workout</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 13: WORKOUT COMPLETE ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">13. Workout Complete</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:60px;text-align:center;">
+        <div class="complete-icon">✓</div>
+
+        <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Workout Complete!</div>
+        <div class="caption" style="margin-bottom:32px;">Push Day</div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-icon" style="color:var(--accent);">⏱</div>
+            <div class="stat-value" style="font-size:18px;">52:34</div>
+            <div class="stat-label">Duration</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:var(--accent);">⚖️</div>
+            <div class="stat-value" style="font-size:18px;">8,420</div>
+            <div class="stat-label">Volume (kg)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="color:var(--accent);">📋</div>
+            <div class="stat-value" style="font-size:18px;">7</div>
+            <div class="stat-label">Exercises</div>
+          </div>
+        </div>
+
+        <div class="card" style="text-align:left;margin-top:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:8px;">
+            <span class="caption">Sets Completed</span>
+            <span style="font-weight:600;font-size:15px;">28 / 33</span>
+          </div>
+          <div class="progress-bar" style="height:6px;">
+            <div class="progress-fill" style="width:85%;background:var(--success);"></div>
+          </div>
+        </div>
+
+        <div style="margin-top:28px;">
+          <div class="btn-primary">Done</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 14: SCAN WORKOUT ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">14. Scan Workout (OCR)</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:20px;">
+        <div style="text-align:center;margin-bottom:24px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Scan Workout</div>
+          <div class="caption">Upload a photo of a workout plan to convert it to structured data</div>
+        </div>
+
+        <div class="scan-area">
+          <div class="scan-icon">📷</div>
+          <div style="font-size:14px;color:var(--textSec);">Tap to upload a workout photo</div>
+          <div class="small">Whiteboards, trainer notes, screenshots</div>
+        </div>
+
+        <div class="scan-features">
+          <div class="scan-feature"><div class="sf-icon">📄</div>Whiteboards</div>
+          <div class="scan-feature"><div class="sf-icon">📝</div>Trainer Plans</div>
+          <div class="scan-feature"><div class="sf-icon">📱</div>Screenshots</div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span>🏠</span><span>Home</span></div>
+      <div class="tab-item"><span>🏋️</span><span>Train</span></div>
+      <div class="tab-item active"><span>📷</span><span>Scan</span></div>
+      <div class="tab-item"><span>📊</span><span>Progress</span></div>
+      <div class="tab-item"><span>⚙️</span><span>Settings</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 15: PARSED RESULTS ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">15. Parsed OCR Results</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:20px;">
+        <div style="text-align:center;margin-bottom:16px;">
+          <div style="font-size:26px;font-weight:800;margin-bottom:6px;">Scan Workout</div>
+        </div>
+
+        <!-- Simulated image preview -->
+        <div style="background:var(--surfaceEl);border-radius:16px;height:140px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;font-size:14px;color:var(--textTer);">
+          📷 Uploaded image preview
+        </div>
+
+        <!-- Parsed results card -->
+        <div class="card">
+          <div class="parsed-header">
+            <div>
+              <div class="section-title" style="margin-bottom:4px;">Parsed Workout</div>
+              <div class="caption">5 exercises found</div>
+            </div>
+            <div class="confidence-badge" style="background:rgba(77,217,140,0.12);color:var(--success);">✓ 87%</div>
+          </div>
+
+          <div class="parsed-item">
+            <div class="parsed-dot" style="background:var(--success);"></div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Bench Press</div><div style="display:flex;gap:10px;"><span style="font-size:12px;color:var(--accent);">3x10</span><span class="small">60kg</span><span class="small">Chest</span></div></div>
+            <span style="color:var(--success);font-size:12px;">✓</span>
+          </div>
+          <div class="parsed-item">
+            <div class="parsed-dot" style="background:var(--success);"></div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Lat Pulldown</div><div style="display:flex;gap:10px;"><span style="font-size:12px;color:var(--accent);">4x12</span><span class="small">45kg</span><span class="small">Back</span></div></div>
+            <span style="color:var(--success);font-size:12px;">✓</span>
+          </div>
+          <div class="parsed-item">
+            <div class="parsed-dot" style="background:var(--success);"></div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Squat</div><div style="display:flex;gap:10px;"><span style="font-size:12px;color:var(--accent);">4x8</span><span class="small">80kg</span><span class="small">Legs</span></div></div>
+            <span style="color:var(--success);font-size:12px;">✓</span>
+          </div>
+          <div class="parsed-item">
+            <div class="parsed-dot" style="background:var(--warning);"></div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Arnold Press</div><div style="display:flex;gap:10px;"><span style="font-size:12px;color:var(--accent);">3x12</span><span class="small">Shoulders</span></div></div>
+          </div>
+          <div class="parsed-item">
+            <div class="parsed-dot" style="background:var(--success);"></div>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Barbell Curl</div><div style="display:flex;gap:10px;"><span style="font-size:12px;color:var(--accent);">3x10</span><span class="small">20kg</span><span class="small">Arms</span></div></div>
+            <span style="color:var(--success);font-size:12px;">✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span>🏠</span><span>Home</span></div>
+      <div class="tab-item"><span>🏋️</span><span>Train</span></div>
+      <div class="tab-item active"><span>📷</span><span>Scan</span></div>
+      <div class="tab-item"><span>📊</span><span>Progress</span></div>
+      <div class="tab-item"><span>⚙️</span><span>Settings</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 16: PROGRESS ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">16. Progress Dashboard</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:12px;">
+        <div style="font-size:26px;font-weight:800;margin-bottom:16px;">Progress</div>
+
+        <div class="stat-row">
+          <div class="stat-card"><div class="stat-icon" style="color:var(--accent);">💪</div><div class="stat-value">27</div><div class="stat-label">Workouts</div></div>
+          <div class="stat-card"><div class="stat-icon" style="color:var(--warning);">🔥</div><div class="stat-value">3w</div><div class="stat-label">Streak</div></div>
+          <div class="stat-card"><div class="stat-icon" style="color:var(--success);">📅</div><div class="stat-value">3</div><div class="stat-label">This Week</div></div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Weekly Volume</div>
+          <div class="bar-chart" style="height:100px;">
+            <div class="bar-col"><div style="font-size:10px;color:var(--textSec);margin-bottom:4px;">6.2k</div><div class="bar" style="height:55px;background:linear-gradient(to top,var(--accent),var(--accentSec));"></div><span class="small">Mon</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Tue</span></div>
+            <div class="bar-col"><div style="font-size:10px;color:var(--textSec);margin-bottom:4px;">8.4k</div><div class="bar" style="height:75px;background:linear-gradient(to top,var(--accent),var(--accentSec));"></div><span class="small">Wed</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Thu</span></div>
+            <div class="bar-col"><div style="font-size:10px;color:var(--textSec);margin-bottom:4px;">7.8k</div><div class="bar" style="height:68px;background:linear-gradient(to top,var(--accent),var(--accentSec));"></div><span class="small">Fri</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Sat</span></div>
+            <div class="bar-col"><div class="bar" style="height:4px;background:var(--surfaceEl);"></div><span class="small">Sun</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Muscle Distribution</div>
+          <div class="muscle-row"><div class="muscle-label">🔴 Chest</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:90%;background:var(--chest);"></div></div><div class="muscle-sets">14 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">🔵 Back</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:75%;background:var(--back);"></div></div><div class="muscle-sets">12 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">🟣 Legs</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:55%;background:var(--legs);"></div></div><div class="muscle-sets">9 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">🟡 Shoulders</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:40%;background:var(--shoulders);"></div></div><div class="muscle-sets">7 sets</div></div>
+          <div class="muscle-row"><div class="muscle-label">🟢 Arms</div><div class="muscle-bar-track"><div class="muscle-bar-fill" style="width:30%;background:var(--arms);"></div></div><div class="muscle-sets">5 sets</div></div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">Personal Records</div>
+          <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <span style="color:var(--warning);">🏆</span>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Flat Bench Press</div><div class="small">Feb 5</div></div>
+            <div style="text-align:right;"><div style="font-weight:600;font-size:14px;">100 kg</div><div class="small">5 reps</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04);">
+            <span style="color:var(--warning);">🏆</span>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Barbell Squat</div><div class="small">Feb 3</div></div>
+            <div style="text-align:right;"><div style="font-weight:600;font-size:14px;">120 kg</div><div class="small">4 reps</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:6px 0;">
+            <span style="color:var(--warning);">🏆</span>
+            <div style="flex:1;"><div style="font-size:14px;font-weight:500;">Deadlift</div><div class="small">Jan 30</div></div>
+            <div style="text-align:right;"><div style="font-weight:600;font-size:14px;">140 kg</div><div class="small">3 reps</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span>🏠</span><span>Home</span></div>
+      <div class="tab-item"><span>🏋️</span><span>Train</span></div>
+      <div class="tab-item"><span>📷</span><span>Scan</span></div>
+      <div class="tab-item active"><span>📊</span><span>Progress</span></div>
+      <div class="tab-item"><span>⚙️</span><span>Settings</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN 17: SETTINGS ==================== -->
+<div class="screen-wrapper">
+  <div class="screen-label">17. Settings</div>
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span></span></div>
+    <div class="screen-content">
+      <div class="pad" style="padding-top:12px;">
+        <div style="font-size:26px;font-weight:800;margin-bottom:16px;">Settings</div>
+
+        <div class="card">
+          <div class="section-title">Your Profile</div>
+
+          <div style="font-size:12px;color:var(--textTer);margin-bottom:6px;">Training Goal</div>
+          <div class="goal-grid" style="margin-bottom:16px;">
+            <div class="goal-btn active"><div>⚡</div>Strength</div>
+            <div class="goal-btn"><div>⚖️</div>Hypertrophy</div>
+            <div class="goal-btn"><div>🔥</div>Fat Loss</div>
+          </div>
+
+          <div style="font-size:12px;color:var(--textTer);margin-bottom:6px;">Experience Level</div>
+          <div class="goal-grid" style="margin-bottom:16px;">
+            <div class="goal-btn">Beginner</div>
+            <div class="goal-btn active">Intermediate</div>
+            <div class="goal-btn">Advanced</div>
+          </div>
+
+          <div style="font-size:12px;color:var(--textTer);margin-bottom:6px;">Default Training Style</div>
+          <div class="mode-row active"><span style="color:var(--accent);width:24px;">↔️</span><span style="font-size:14px;">Push / Pull</span><span style="margin-left:auto;color:var(--accent);font-size:13px;">✓</span></div>
+          <div class="mode-row"><span style="color:var(--textTer);width:24px;">📅</span><span style="font-size:14px;color:var(--textPri);">Bro Split</span></div>
+          <div class="mode-row"><span style="color:var(--textTer);width:24px;">💪</span><span style="font-size:14px;color:var(--textPri);">Full Body</span></div>
+          <div class="mode-row"><span style="color:var(--textTer);width:24px;">🎯</span><span style="font-size:14px;color:var(--textPri);">Muscle Focus</span></div>
+
+          <div style="font-size:12px;color:var(--textTer);margin:12px 0 6px;">Training Days per Week</div>
+          <div class="day-selector" style="justify-content:flex-start;gap:5px;">
+            <div class="day-btn" style="width:40px;height:40px;font-size:15px;">2</div>
+            <div class="day-btn" style="width:40px;height:40px;font-size:15px;">3</div>
+            <div class="day-btn active" style="width:40px;height:40px;font-size:15px;">4</div>
+            <div class="day-btn" style="width:40px;height:40px;font-size:15px;">5</div>
+            <div class="day-btn" style="width:40px;height:40px;font-size:15px;">6</div>
+            <div class="day-btn" style="width:40px;height:40px;font-size:15px;">7</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="section-title">About</div>
+          <div class="setting-row"><span class="setting-label">Version</span><span class="setting-value">1.0.0</span></div>
+          <div class="setting-row"><span class="setting-label">Data Storage</span><span class="setting-value">On-Device Only</span></div>
+          <div class="setting-row"><span class="setting-label">Account</span><span class="setting-value">No account needed</span></div>
+          <div class="setting-row"><span class="setting-label">Privacy</span><span class="setting-value">Zero tracking</span></div>
+          <div style="border-top:1px solid var(--surfaceEl);margin:10px 0;"></div>
+          <div style="color:var(--danger);font-size:14px;">↺ Reset All Data</div>
+        </div>
+
+        <div class="privacy-footer">
+          🔒<br>StrengthX stores all data on your device.<br>No accounts. No cloud. No tracking.
+        </div>
+      </div>
+    </div>
+    <div class="tab-bar">
+      <div class="tab-item"><span>🏠</span><span>Home</span></div>
+      <div class="tab-item"><span>🏋️</span><span>Train</span></div>
+      <div class="tab-item"><span>📷</span><span>Scan</span></div>
+      <div class="tab-item"><span>📊</span><span>Progress</span></div>
+      <div class="tab-item active"><span>⚙️</span><span>Settings</span></div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div style="text-align:center;padding:60px 20px;color:var(--textTer);font-size:14px;">
+  StrengthX iOS App Preview — 17 Screens<br>
+  Open app → Configure once → Lift forever
+</div>
+
+</body>
+</html>
